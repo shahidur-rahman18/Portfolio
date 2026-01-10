@@ -181,13 +181,13 @@ const ProjectsSection = () => {
         transition={{ duration: 0.6 }}
       >
         <div>
-          <h2 className="text-3xl font-bold text-foreground">Recent Projects</h2>
+          <h2 className="text-3xl font-bold text-primary">Recent Projects</h2>
         </div>
         <motion.div
           whileHover={{ x: 5 }}
           transition={{ duration: 0.2 }}
         >
-          <Button variant="link" className="hidden sm:inline-flex items-center gap-1 text-primary hover:text-sky-400">
+          <Button variant="link" className="hidden sm:inline-flex items-center gap-1 text-primary hover:text-primary/80">
             View All <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </motion.div>
@@ -319,7 +319,7 @@ const ProjectsSection = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Button className="w-full shadow-lg shadow-primary/25 hover:shadow-primary/40 active:scale-95 transition-all" asChild>
+                      <Button className="w-full shadow-lg shadow-primary/25 text-white hover:shadow-primary/40 active:scale-95 transition-all" asChild>
                         <a href={project.liveDemo} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="mr-2 h-4 w-4" />
                           Live Demo
@@ -331,7 +331,7 @@ const ProjectsSection = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Button variant="outline" className="w-full active:scale-95 transition-all" asChild>
+                      <Button className="w-full bg-transparent border-2 border-slate-200 dark:border-slate-700 text-primary hover:bg-primary hover:text-white hover:border-primary active:scale-95 transition-all" asChild>
                         <a href={project.github} target="_blank" rel="noopener noreferrer">
                           <Github className="mr-2 h-4 w-4" />
                           Code
@@ -357,7 +357,7 @@ const ProjectsSection = () => {
           whileHover={{ x: 5 }}
           transition={{ duration: 0.2 }}
         >
-          <Button variant="link" className="text-primary hover:text-sky-400 px-4 py-2 rounded-lg hover:bg-primary/5">
+          <Button variant="link" className="text-primary hover:text-primary/80 px-4 py-2 rounded-lg hover:bg-primary/5">
             View All Projects <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </motion.div>

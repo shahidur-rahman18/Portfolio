@@ -24,11 +24,11 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#0ea5e9", // Sky blue color from the design
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "#0284c7",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
@@ -52,8 +52,6 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         // Exact colors from HTML design
-        primary: "#0ea5e9", // Sky blue color from the design
-        secondary: "#0284c7",
         "background-light": "#f8fafc", // Light gray for light mode
         "background-dark": "#0f172a", // Deep slate for dark mode
         "surface-dark": "#1e293b", // Slightly lighter slate for cards

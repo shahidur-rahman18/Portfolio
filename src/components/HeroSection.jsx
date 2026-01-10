@@ -1,88 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Send, Github, Linkedin, Twitter, Mail } from 'lucide-react';
 
 const HeroSection = () => {
-  const [nameText, setNameText] = useState('');
-  const [titleText, setTitleText] = useState('');
+  const [displayText, setDisplayText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
-  
-  const fullName = 'Md.Shahidur Rahman';
-  const fullTitle = 'Passionate ';
-  const roles = ['Web Developer', 'Frontend Developer', 'React Developer', 'Full Stack Developer'];
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [roleText, setRoleText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    let nameIndex = 0;
-    let titleIndex = 0;
-    let roleIndex = 0;
-    let isTypingName = true;
-    let isTypingTitle = false;
-    let isTypingRole = false;
-    let nameComplete = false;
-    let titleComplete = false;
+    const texts = [
+      'Md.Shahidur Rahman Passionate Web Developer',
+      'Md.Shahidur Rahman Passionate Frontend Developer', 
+      'Md.Shahidur Rahman Passionate React Developer',
+      'Md.Shahidur Rahman Passionate Full Stack Developer'
+    ];
+    
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    let intervalId;
 
     const typeText = () => {
-      // Type name first
-      if (isTypingName && nameIndex < fullName.length) {
-        setNameText(fullName.slice(0, nameIndex + 1));
-        nameIndex++;
-      } else if (isTypingName && nameIndex >= fullName.length && !nameComplete) {
-        nameComplete = true;
-        isTypingName = false;
-        setTimeout(() => {
-          isTypingTitle = true;
-        }, 500);
-      }
-      // Type "Passionate " part
-      else if (isTypingTitle && titleIndex < fullTitle.length) {
-        setTitleText(fullTitle.slice(0, titleIndex + 1));
-        titleIndex++;
-      } else if (isTypingTitle && titleIndex >= fullTitle.length && !titleComplete) {
-        titleComplete = true;
-        isTypingTitle = false;
-        setTimeout(() => {
-          isTypingRole = true;
-        }, 300);
-      }
-      // Type and delete roles continuously
-      else if (isTypingRole) {
-        const currentRole = roles[currentRoleIndex];
+      const currentText = texts[currentTextIndex];
+      
+      if (!isDeleting) {
+        // Typing
+        setDisplayText(currentText.slice(0, currentCharIndex + 1));
+        currentCharIndex++;
         
-        if (!isDeleting && roleIndex < currentRole.length) {
-          setRoleText(currentRole.slice(0, roleIndex + 1));
-          roleIndex++;
-        } else if (!isDeleting && roleIndex >= currentRole.length) {
+        if (currentCharIndex === currentText.length) {
+          // Finished typing, wait then start deleting
           setTimeout(() => {
-            setIsDeleting(true);
-          }, 2000); // Pause before deleting
-        } else if (isDeleting && roleIndex > 0) {
-          setRoleText(currentRole.slice(0, roleIndex - 1));
-          roleIndex--;
-        } else if (isDeleting && roleIndex === 0) {
-          setIsDeleting(false);
-          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+            isDeleting = true;
+          }, 1000);
+        }
+      } else {
+        // Deleting
+        setDisplayText(currentText.slice(0, currentCharIndex - 1));
+        currentCharIndex--;
+        
+        if (currentCharIndex === 0) {
+          // Finished deleting, move to next text
+          isDeleting = false;
+          currentTextIndex = (currentTextIndex + 1) % texts.length;
         }
       }
     };
 
-    const typingSpeed = isTypingRole && isDeleting ? 50 : 100; // Faster deletion
-    const typingInterval = setInterval(typeText, typingSpeed);
+    // Start typing animation - professional speed
+    intervalId = setInterval(typeText, isDeleting ? 50 : 100);
 
-    // Cursor blinking effect
+    // Cursor blinking
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 500);
 
     return () => {
-      clearInterval(typingInterval);
+      clearInterval(intervalId);
       clearInterval(cursorInterval);
     };
-  }, [currentRoleIndex, isDeleting]);
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -185,8 +163,8 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            {nameText}
-            {nameText.length < fullName.length && showCursor && (
+            {displayText.split(' ').slice(0, 2).join(' ')}
+            {showCursor && displayText.split(' ').length <= 2 && (
               <span className="text-primary animate-pulse">|</span>
             )}
           </motion.h1>
@@ -196,13 +174,19 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            {titleText}
-            <span className="text-primary font-bold">
-              {roleText}
-              {showCursor && (
-                <span className="text-primary animate-pulse">|</span>
-              )}
-            </span>
+            {displayText.split(' ').length > 2 && (
+              <>
+                <span className="text-black dark:text-white">
+                  {displayText.split(' ').slice(2, 3).join(' ')}{' '}
+                </span>
+                <span className="text-primary font-bold">
+                  {displayText.split(' ').slice(3).join(' ')}
+                </span>
+              </>
+            )}
+            {showCursor && displayText.split(' ').length > 2 && (
+              <span className="text-primary animate-pulse">|</span>
+            )}
           </motion.h2>
         </motion.div>
 
@@ -218,14 +202,14 @@ const HeroSection = () => {
           className="flex flex-wrap justify-center lg:justify-start gap-2 max-w-lg mx-auto lg:mx-0"
           variants={badgeVariants}
         >
-          {['React & Native', 'Node.js', 'UI/UX Design', 'Cloud Architecture'].map((skill, index) => (
+          {['React','Next.js', 'Node.js', 'UI/UX Design', 'Cloud Architecture'].map((skill, index) => (
             <motion.div
               key={skill}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Badge variant="secondary">{skill}</Badge>
+              <Badge variant="secondary" className='text-white'  >{skill}</Badge>
             </motion.div>
           ))}
         </motion.div>
@@ -240,16 +224,16 @@ const HeroSection = () => {
             { icon: Linkedin, href: "https://www.linkedin.com/in/shahidur-rahman18/" },
             { icon: Twitter, href: "https://x.com/ShahidurRa94403" },
             { icon: Mail, href: "https://mail.google.com/mail/?view=cm&fs=1&to=mdshahidurrahman3690@gmail.com&su=Hello%20Md.Shaidur%20Rahman&body=Hi%20there,%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20connect.%0A%0ABest%20regards" }
-          ].map((social, index) => {
+          ].map((social, socialIndex) => {
             const IconComponent = social.icon;
             return (
               <motion.div
-                key={index}
+                key={socialIndex}
                 variants={itemVariants}
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button variant="outline" size="icon" className="rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700" asChild>
+                <Button variant="outline" size="icon" className="rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-slate-700 dark:text-slate-300 hover:text-white dark:hover:text-white border-gray-300 dark:border-gray-600" asChild>
                   <a href={social.href} target="_blank" rel="noopener noreferrer">
                     <IconComponent className="h-4 w-4" />
                   </a>
@@ -268,8 +252,19 @@ const HeroSection = () => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Button className="rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all transform hover:-translate-y-1 active:scale-95">
-              <Send className="mr-2 h-4 w-4" />
+            <Button 
+              className="rounded-full shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all transform hover:-translate-y-1 active:scale-95 text-white"
+              onClick={() => {
+                const footer = document.querySelector('footer');
+                if (footer) {
+                  footer.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                }
+              }}
+            >
+              <Send className="mr-2 h-4 w-4 " />
               Let's Connect
             </Button>
           </motion.div>

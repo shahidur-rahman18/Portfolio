@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { GraduationCap, School } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -157,12 +157,10 @@ const EducationSection = () => {
         transition={{ duration: 0.6 }}
       >
         <div>
-          <h3 className="text-sm font-bold text-primary tracking-wider uppercase mb-1">Academic Path</h3>
-          <h2 className="text-3xl font-bold text-foreground">Educational Qualification</h2>
+          
+          <h2 className="text-3xl font-bold text-primary">Educational Qualification</h2>
         </div>
-        <p className="text-muted-foreground text-sm max-w-md text-left sm:text-right">
-          Building a strong theoretical foundation for practical application.
-        </p>
+        
       </motion.div>
 
       <div className="relative">
@@ -225,7 +223,7 @@ const EducationSection = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
                           >
-                            <Badge variant="secondary" className="mt-2 sm:mt-0 w-fit">
+                            <Badge variant="secondary" className="mt-2 text-white sm:mt-0 w-fit">
                               {edu.period}
                             </Badge>
                           </motion.div>

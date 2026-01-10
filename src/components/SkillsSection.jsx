@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,9 +17,10 @@ const SkillsSection = () => {
       icon: 'fas fa-code',
       color: 'orange',
       skills: [
-        { name: 'JavaScript', level: 95, icon: 'fab fa-js text-yellow-500' },
-        { name: 'TypeScript', level: 90, icon: 'fas fa-code text-blue-500' },
-        { name: 'HTML5 & CSS3', level: 98, icon: 'fab fa-html5 text-orange-600' },
+        { name: 'JavaScript', icon: 'fab fa-js text-yellow-500' },
+        { name: 'TypeScript', icon: 'fas fa-code text-blue-500' },
+        { name: 'HTML5', icon: 'fab fa-html5 text-orange-600' },
+        { name: 'CSS3', icon: 'fab fa-css3-alt text-blue-600' },
       ]
     },
     {
@@ -28,9 +29,10 @@ const SkillsSection = () => {
       icon: 'fas fa-layer-group',
       color: 'sky',
       skills: [
-        { name: 'React', level: 95, icon: 'fab fa-react text-sky-400' },
-        { name: 'Next.js', level: 90, icon: 'fas fa-layer-group text-slate-800 dark:text-white' },
-        { name: 'Tailwind CSS', level: 95, icon: 'fas fa-wind text-cyan-500' },
+        { name: 'React', icon: 'fab fa-react text-cyan-400' },
+        { name: 'Next.js', icon: 'fas fa-layer-group text-slate-800 dark:text-white' },
+        { name: 'Tailwind CSS', icon: 'fas fa-wind text-cyan-500' },
+        { name: 'GSAP', icon: 'fas fa-magic text-green-500' },
       ]
     },
     {
@@ -39,20 +41,22 @@ const SkillsSection = () => {
       icon: 'fas fa-server',
       color: 'purple',
       skills: [
-        { name: 'Node.js', level: 90, icon: 'fab fa-node text-green-500' },
-        { name: 'Express.js', level: 85, icon: 'fas fa-hashtag text-slate-400 dark:text-slate-300' },
-        { name: 'Firebase', level: 80, icon: 'fas fa-fire text-amber-500' },
+        { name: 'Node.js', icon: 'fab fa-node text-green-500' },
+        { name: 'Express.js', icon: 'fas fa-hashtag text-slate-400 dark:text-slate-300' },
+        { name: 'Firebase', icon: 'fas fa-fire text-orange-500' },
+        { name: 'MongoDB', icon: 'fab fa-envira text-green-500' },
       ]
     },
     {
-      title: 'Data & Tools',
-      subtitle: 'DBs & DevOps',
-      icon: 'fas fa-database',
+      title: 'Tools & Others',
+      subtitle: 'Development Tools',
+      icon: 'fas fa-tools',
       color: 'emerald',
       skills: [
-        { name: 'MongoDB', level: 85, icon: 'fab fa-envira text-green-500' },
-        { name: 'PostgreSQL', level: 80, icon: 'fas fa-database text-blue-500' },
-        { name: 'Git & GitHub', level: 92, icon: 'fab fa-github text-slate-700 dark:text-slate-300' },
+        { name: 'Git & GitHub', icon: 'fab fa-github text-slate-700 dark:text-slate-300' },
+        { name: 'VS Code', icon: 'fas fa-code text-blue-500' },
+        { name: 'Canva', icon: 'fas fa-paint-brush text-purple-500' },
+        { name: 'Photoshop', icon: 'fas fa-palette text-blue-600' },
       ]
     },
   ], []);
@@ -102,20 +106,22 @@ const SkillsSection = () => {
             }
           );
 
-          // Animate progress bars within each card
-          const progressBars = card.querySelectorAll('.progress-bar');
-          progressBars.forEach((progressBar, skillIndex) => {
-            const skillLevel = skillCategories[index].skills[skillIndex].level;
-            
-            gsap.fromTo(progressBar,
+          // Animate skill items within each card
+          const skillItems = card.querySelectorAll('.skill-item');
+          skillItems.forEach((skillItem, skillIndex) => {
+            gsap.fromTo(skillItem,
               { 
-                width: "0%" 
+                opacity: 0,
+                x: -20,
+                scale: 0.8
               },
               {
-                width: `${skillLevel}%`,
-                duration: 1.2,
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 0.5,
                 delay: index * 0.15 + skillIndex * 0.1 + 0.3,
-                ease: "power2.out",
+                ease: "back.out(1.7)",
                 scrollTrigger: {
                   trigger: card,
                   start: "top 75%",
@@ -172,8 +178,7 @@ const SkillsSection = () => {
         transition={{ duration: 0.6 }}
       >
         <div>
-          <h3 className="text-sm font-bold text-primary tracking-wider uppercase mb-1">My Arsenal</h3>
-          <h2 className="text-3xl font-bold text-foreground">Technical Skills</h2>
+          <h2 className="text-3xl font-bold text-primary">Technical Skills</h2>
         </div>
       </motion.div>
 
@@ -211,42 +216,35 @@ const SkillsSection = () => {
                 <p className="text-xs text-slate-500 dark:text-slate-300">{category.subtitle}</p>
               </div>
             </div>
-            <div className="space-y-6">
+            
+            <div className="grid grid-cols-2 gap-4">
               {category.skills.map((skill, skillIndex) => (
                 <motion.div 
                   key={skillIndex} 
-                  className="group"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  className="skill-item group"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: skillIndex * 0.1 }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    transition: { duration: 0.2 }
+                  }}
                 >
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex flex-col items-center p-4 rounded-xl bg-gray-50 dark:bg-slate-700/50 border border-gray-200 dark:border-slate-600 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
                     <motion.div 
-                      className="w-10 h-10 rounded-lg bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 flex items-center justify-center shadow-sm"
+                      className="w-12 h-12 rounded-lg bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 flex items-center justify-center shadow-sm mb-3"
                       whileHover={{ 
                         scale: 1.1,
+                        rotate: 5,
                         transition: { duration: 0.2 }
                       }}
                     >
-                      <i className={`${skill.icon} text-xl`}></i>
+                      <i className={`${skill.icon} text-2xl`}></i>
                     </motion.div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-end mb-1">
-                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">
-                          {skill.name}
-                        </span>
-                        <span className="text-xs font-bold text-slate-400 dark:text-slate-400">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
-                        <div 
-                          className="progress-bar h-full bg-primary rounded-full transition-all duration-300"
-                          style={{ width: '0%' }}
-                        />
-                      </div>
-                    </div>
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors text-center">
+                      {skill.name}
+                    </span>
                   </div>
                 </motion.div>
               ))}

@@ -1,15 +1,60 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { Home, Layers, Code, User } from 'lucide-react';
 
 const MobileNavigation = () => {
+  const [activeSection, setActiveSection] = useState('home');
+
   const navItems = [
-    { icon: Home, label: 'Home', href: '#', isActive: true },
-    { icon: Layers, label: 'Projects', href: '#projects' },
-    { icon: Code, label: 'Skills', href: '#skills' },
-    { icon: User, label: 'About', href: '#about' },
+    { icon: Home, label: 'Home', href: '#about', id: 'home' },
+    { icon: Layers, label: 'Projects', href: '#projects', id: 'projects' },
+    { icon: Code, label: 'Skills', href: '#skills', id: 'skills' },
+    { icon: User, label: 'About', href: '#education', id: 'education' },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'skills', 'education', 'projects'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          if (sections[i] === 'about') {
+            setActiveSection('home');
+          } else {
+            setActiveSection(sections[i]);
+          }
+          break;
+        }
+      }
+
+      if (scrollPosition < 100) {
+        setActiveSection('home');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleNavClick = (href, id) => {
+    setActiveSection(id);
+    
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1);
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  };
 
   const navVariants = {
     hidden: { y: 100, opacity: 0 },
@@ -45,6 +90,8 @@ const MobileNavigation = () => {
       <div className="flex justify-between items-center px-6 py-3">
         {navItems.map((item, index) => {
           const IconComponent = item.icon;
+          const isActive = activeSection === item.id;
+          
           return (
             <motion.div
               key={index}
@@ -57,34 +104,35 @@ const MobileNavigation = () => {
               <Button
                 variant="ghost"
                 className={`flex flex-col items-center gap-1 w-full h-auto py-2 ${
-                  item.isActive ? 'text-primary' : 'text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary'
+                  isActive ? 'text-primary bg-primary/10 hover:bg-primary/20 hover:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary'
                 }`}
-                asChild
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.href, item.id);
+                }}
               >
-                <a href={item.href}>
-                  <div className="relative">
-                    <motion.div
-                      whileHover={{ rotate: 5 }}
-                      transition={{ duration: 0.2 }}
+                <div className="relative">
+                  <motion.div
+                    whileHover={{ rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <IconComponent className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                  </motion.div>
+                  {isActive && (
+                    <motion.span 
+                      className="absolute -top-1 -right-1 flex h-2 w-2"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2 }}
                     >
-                      <IconComponent className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                    </motion.div>
-                    {item.isActive && (
-                      <motion.span 
-                        className="absolute -top-1 -right-1 flex h-2 w-2"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                      </motion.span>
-                    )}
-                  </div>
-                  <span className="text-[10px] font-medium whitespace-pre-line text-center leading-tight">
-                    {item.label}
-                  </span>
-                </a>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </motion.span>
+                  )}
+                </div>
+                <span className="text-[10px] font-medium whitespace-pre-line text-center leading-tight">
+                  {item.label}
+                </span>
               </Button>
             </motion.div>
           );
