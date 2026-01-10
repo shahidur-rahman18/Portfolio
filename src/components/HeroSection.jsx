@@ -138,7 +138,7 @@ const HeroSection = () => {
       >
         <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full transform scale-90"></div>
         <motion.div 
-          className="relative w-72 h-72 sm:w-80 sm:h-80 blob-shape bg-gradient-to-br from-primary to-blue-600 overflow-hidden shadow-2xl border-4 border-background z-10 flex items-end justify-center"
+          className="relative w-72 h-72 sm:w-80 sm:h-80 blob-shape bg-gradient-to-br from-primary to-blue-600 overflow-hidden shadow-2xl border-4 border-primary z-10 flex items-end justify-center"
           whileHover={{ 
             scale: 1.05,
             rotate: 2,
@@ -151,7 +151,7 @@ const HeroSection = () => {
             src="https://i.ibb.co.com/V0RxnQcW/i.jpg"
           />
         </motion.div>
-        <div className="absolute w-[110%] h-[110%] rounded-[40%_60%_70%_30%/40%_50%_60%_50%] border border-primary/30 animate-pulse"></div>
+        <div className="absolute w-[110%] h-[110%] rounded-[40%_60%_70%_30%/40%_50%_60%_50%] bg-gradient-radial from-primary/40 via-primary/20 to-transparent animate-pulse"></div>
       </motion.div>
 
       {/* Content */}

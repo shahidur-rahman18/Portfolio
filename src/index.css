@@ -63,13 +63,13 @@
     min-height: max(884px, 100dvh);
   }
   
-  /* Ensure no brown/tan colors appear */
+  /* Ensure no brown/tan colors appear and allow particles to show through */
   html, body, #root {
-    background-color: rgb(15 23 42) !important; /* Force dark theme background */
+    background: transparent !important;
   }
   
   .light html, .light body, .light #root {
-    background-color: rgb(248 250 252) !important; /* Force light theme background */
+    background: transparent !important;
   }
 }
 
@@ -172,6 +172,11 @@ body {
 
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Radial Gradient for Profile Image Glow Effect */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
 }
 
 /* Signature Style for Logo */

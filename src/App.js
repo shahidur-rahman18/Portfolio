@@ -38,13 +38,13 @@ function App() {
   return (
     <div className={`font-body min-h-screen flex flex-col transition-colors duration-300 pb-24 lg:pb-0 relative ${
       isDark 
-        ? 'bg-slate-900 text-slate-100' 
-        : 'bg-slate-50 text-slate-800'
+        ? 'bg-slate-900/95 text-slate-100' 
+        : 'bg-slate-50/95 text-slate-800'
     }`}>
       <AnimatedBackground />
       <Navigation />
       
-      <main className="flex-grow flex flex-col justify-center px-6 pt-8 pb-safe overflow-x-hidden relative z-10">
+      <main className="flex-grow flex flex-col justify-center px-6 pt-8 pb-safe overflow-x-hidden relative z-20">
         <HeroSection />
         <StatsSection />
         <SkillsSection />
