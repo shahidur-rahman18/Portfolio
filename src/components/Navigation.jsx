@@ -92,18 +92,11 @@ const Navigation = () => {
       <div className="px-6 py-4 flex justify-between items-center">
         {/* Professional Portfolio Logo */}
         <motion.div 
-          className="flex items-center gap-3"
+          className="flex items-center"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-white">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
           <div className="text-4xl font-bold tracking-tight signature-text" style={{ fontFamily: 'Dancing Script, Brush Script MT, cursive' }}>
             <span className="text-white">Shahidur</span>
             <span className="text-primary">Rahman</span>
