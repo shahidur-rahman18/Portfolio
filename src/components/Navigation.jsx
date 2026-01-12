@@ -97,7 +97,7 @@ const Navigation = () => {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="text-4xl font-bold tracking-tight signature-text" style={{ fontFamily: 'Dancing Script, Brush Script MT, cursive' }}>
+          <div className="text-xl md:text-4xl font-bold tracking-tight signature-text" style={{ fontFamily: 'Dancing Script, Brush Script MT, cursive' }}>
             <span className="text-white">Shahidur</span>
             <span className="text-primary">Rahman</span>
           </div>
@@ -162,7 +162,7 @@ const Navigation = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
           >
-            <Button className="bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg shadow-green-500/30 hover:shadow-green-500/40 transition-all active:scale-95" asChild>
+            <Button className="bg-green-500  hover:bg-green-600 text-white rounded-full shadow-lg shadow-green-500/30 hover:shadow-green-500/40 transition-all active:scale-95" asChild>
               <a href="https://drive.google.com/file/d/15TkA-LCP7EQD8fsNK9zOn5OnlfNWaPjv/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                 <span>Resume</span>
                 <Download className="ml-2 h-4 w-4" />
