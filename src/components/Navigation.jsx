@@ -163,7 +163,7 @@ const Navigation = () => {
             transition={{ duration: 0.2 }}
           >
             <Button className="bg-green-500  hover:bg-green-600 text-white rounded-full shadow-lg shadow-green-500/30 hover:shadow-green-500/40 transition-all active:scale-95" asChild>
-              <a href="https://drive.google.com/file/d/15TkA-LCP7EQD8fsNK9zOn5OnlfNWaPjv/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <a href="https://drive.google.com/file/d/1QSy9S8MPHlADbm0weaQjKO7MTp7CjI24/view?usp=sharing">
                 <span>Resume</span>
                 <Download className="ml-2 h-4 w-4" />
               </a>

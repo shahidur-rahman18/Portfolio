@@ -22,8 +22,8 @@ const ProjectsSection = () => {
       image: 'https://i.ibb.co.com/h18m2nHt/Screenshot-2026-01-05-182318.png',
       tags: ['Full Stack Project'],
       featured: true,
-      liveDemo: 'https://style-decor-client-self.vercel.app/',
-      github: 'https://github.com/shahidur-rahman18/Style-Decor.git'
+      liveDemo: 'https://style-decor-indol.vercel.app/',
+      github: 'https://github.com/shahidur-rahman18/Style_Decor'
     },
     {
       title: 'Book Haven',
