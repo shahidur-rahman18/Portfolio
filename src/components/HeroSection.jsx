@@ -11,9 +11,6 @@ const HeroSection = () => {
   useEffect(() => {
     const texts = [
       'Md.Shahidur Rahman Passionate Web Developer',
-      'Md.Shahidur Rahman Passionate Frontend Developer', 
-      'Md.Shahidur Rahman Passionate React Developer',
-      'Md.Shahidur Rahman Passionate Full Stack Developer'
     ];
     
     let currentTextIndex = 0;
