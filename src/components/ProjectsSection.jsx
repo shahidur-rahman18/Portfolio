@@ -5,7 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Card, CardContent, CardFooter } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { ExternalLink, Github, BarChart3, ShoppingBag, MessageSquare, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github, BarChart3, ShoppingBag, MessageSquare, ArrowRight, BookOpen, GraduationCap, LayoutDashboard } from 'lucide-react';
+import molylearnImage from '../assets/molylearn.png';
+import skindermaImage from '../assets/skindarma.png';
+import auapImage from '../assets/auap.png';
+import agencioImage from '../assets/agencio.png';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -15,6 +19,42 @@ const ProjectsSection = () => {
   const cardsRef = useRef([]);
 
   const projects = [
+    {
+      title: 'MolyLearn (LMS Platform)',
+      description: 'Architected a full-stack, type-safe learning management system using Next.js, TypeScript, and MySQL. Implemented role-based access control for Admins, Teachers, and Students with JWT authentication.',
+      icon: BookOpen,
+      image: molylearnImage,
+      tags: ['Next.js', 'TypeScript', 'MySQL', 'JWT'],
+      featured: false,
+      liveDemo: 'https://molylearn.codemoly.io/'
+    },
+    {
+      title: 'SkinDerma (Skincare E-commerce)',
+      description: 'Developed a responsive skincare e-commerce and booking system with React.js, Node.js, and MongoDB. Engineered dynamic product cataloging and secure checkout workflows.',
+      icon: ShoppingBag,
+      image: skindermaImage,
+      tags: ['React.js', 'Node.js', 'MongoDB', 'E-commerce'],
+      featured: false,
+      liveDemo: 'https://skinderma.ngvps.se/'
+    },
+    {
+      title: 'AUAP – Education Consultancy',
+      description: 'A website for AUAP, an education consultancy helping students explore educational opportunities and access guidance for their academic journey.',
+      icon: GraduationCap,
+      image: auapImage,
+      tags: ['Education', 'Consultancy'],
+      featured: false,
+      liveDemo: 'https://auapbd.com/'
+    },
+    {
+      title: 'Agencio (Agency Management System)',
+      description: 'An agency management system designed to support agency workflows and organize business operations in one place.',
+      icon: LayoutDashboard,
+      image: agencioImage,
+      tags: ['Agency Management', 'Web App'],
+      featured: false,
+      liveDemo: 'https://agencio.xyz/'
+    },
     {
       title: 'Style Decor',
       description: 'Styl Decor is a premium, full-stack appointment management platform designed for decoration businesses. It streamlines the process of booking in-studio consultations and on-site decoration services, managing professional decorators, and tracking project progress in real-time.',
@@ -194,7 +234,7 @@ const ProjectsSection = () => {
       </motion.div>
 
       <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid auto-rows-fr grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -206,13 +246,14 @@ const ProjectsSection = () => {
             <motion.div
               key={index}
               ref={el => cardsRef.current[index] = el}
+              className="h-full"
               variants={cardVariants}
               whileHover={{ 
                 y: -10,
                 transition: { duration: 0.3 }
               }}
             >
-              <Card className="group overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 flex flex-col bg-white dark:bg-[#2c3342] border border-gray-200 dark:border-slate-600">
+              <Card className="group h-full overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 flex flex-col bg-white dark:bg-[#2c3342] border border-gray-200 dark:border-slate-600">
                 {/* Project Header with Image */}
                 <div className="project-header h-48 w-full relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                   {/* Project Image */}
@@ -315,7 +356,7 @@ const ProjectsSection = () => {
                     transition={{ delay: 0.4 }}
                   >
                     <motion.div
-                      className="flex-1"
+                      className={project.github ? 'flex-1' : 'w-full'}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -326,18 +367,20 @@ const ProjectsSection = () => {
                         </a>
                       </Button>
                     </motion.div>
-                    <motion.div
-                      className="flex-1"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Button className="w-full bg-transparent border-2 border-slate-200 dark:border-slate-700 text-primary hover:bg-primary hover:text-white hover:border-primary active:scale-95 transition-all" asChild>
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Github className="mr-2 h-4 w-4" />
-                          Code
-                        </a>
-                      </Button>
-                    </motion.div>
+                    {project.github && (
+                      <motion.div
+                        className="flex-1"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button className="w-full bg-transparent border-2 border-slate-200 dark:border-slate-700 text-primary hover:bg-primary hover:text-white hover:border-primary active:scale-95 transition-all" asChild>
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="mr-2 h-4 w-4" />
+                            Code
+                          </a>
+                        </Button>
+                      </motion.div>
+                    )}
                   </motion.div>
                 </CardFooter>
               </Card>
